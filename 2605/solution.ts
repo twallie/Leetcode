@@ -86,3 +86,5 @@ for (let i: number = 0; i < cases.length; i++) {
     let result: number = minNumber(nums1, nums2)
     console.log(`Case ${i} result = ${result}`)
 }
+
+export {}
