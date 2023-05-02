@@ -42,38 +42,19 @@ function arraySign(nums: number[]): number {
     const NEGATIVE: number = -1;
     const ZERO: number = 0; 
 
-    // true = positive, false = negative, null = no run
-    let sign: number = POSITIVE
+    let negativeCount: number = 0
 
-    for (let i: number = 0; i < nums.length; i++) {
-        let num: number = nums[i];
+    for (let num of nums) {
 
         if (num == 0) {
             return ZERO;
         }
-
-        let numSign = determineSign(num)
-
-        if (numSign == NEGATIVE) {
-            sign = sign == NEGATIVE ? POSITIVE : NEGATIVE;
-        }
-        
-    }
-
-    return sign
-
-    function determineSign(num: number) {
-
-        if (num > 0) {
-            return POSITIVE;
-        }
         else if (num < 0) {
-            return NEGATIVE;
-        }
-        else {
-            return ZERO;
+            negativeCount++;
         }
 
     }
+
+    return negativeCount % 2 ? NEGATIVE : POSITIVE;
 
 }
