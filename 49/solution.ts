@@ -1,42 +1,15 @@
 function groupAnagrams(strs: string[]): string[][] {
-    const groups = new Map<string, number>();
-    const result: string[][] = [];
+    const map = new Map<string, string[]>();
 
-    for (let i = 0; i < strs.length; i++) {
-        const str = strs[i];
+    strs.forEach((str) => {
+        const key = str.split("").sort().join("");
 
-        let exists = false;
-        groups.forEach((value, key) => {
-            if (anagram(str, key)) {
-                result[value].push(str);
-                exists = true;
-            }
-        });
-
-        if (!exists) {
-            result.push([str]);
-            groups.set(str, result.length - 1);
+        if (map.has(key)) {
+            (map.get(key) || []).push(str);
+        } else {
+            map.set(key, [str]);
         }
-    }
+    });
 
-    return result;
-}
-
-// From 242
-function anagram(s: string, t: string) {
-    if (s.length != t.length) {
-        return false;
-    }
-
-    const memo: number[] = new Array(26).fill(0);
-
-    for (let i = 0; i < s.length; i++) {
-        let sIndex = s.charCodeAt(i) - 97;
-        let tIndex = t.charCodeAt(i) - 97;
-        memo[sIndex]++;
-        memo[tIndex]--;
-    }
-
-    for (let i = 0; i < memo.length; i++) if (memo[i] != 0) return false;
-    return true;
+    return [...map.values()];
 }
